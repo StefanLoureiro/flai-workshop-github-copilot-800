@@ -15,11 +15,18 @@ router.register(r'activities', ActivityViewSet)
 router.register(r'leaderboard', LeaderboardViewSet)
 router.register(r'workouts', WorkoutViewSet)
 
+# Build the public base URL from the Codespace environment variable so that
+# browsable-API links and api_root responses use the correct HTTPS origin.
 codespace_name = os.environ.get('CODESPACE_NAME')
 if codespace_name:
     base_url = f"https://{codespace_name}-8000.app.github.dev"
 else:
     base_url = "http://localhost:8000"
+
+# Expose base_url via Django settings so other modules can reference it.
+from django.conf import settings as django_settings
+if not hasattr(django_settings, 'API_BASE_URL'):
+    django_settings.API_BASE_URL = base_url
 
 urlpatterns = [
     path('admin/', admin.site.urls),
