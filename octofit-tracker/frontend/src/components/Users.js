@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useCallback } from 'react';
 
-const BASE_URL = process.env.REACT_APP_CODESPACE_NAME
-  ? `https://${process.env.REACT_APP_CODESPACE_NAME}-8000.app.github.dev`
-  : 'http://localhost:8000';
+const USERS_URL = process.env.REACT_APP_CODESPACE_NAME
+  ? `https://${process.env.REACT_APP_CODESPACE_NAME}-8000.app.github.dev/api/users/`
+  : 'http://localhost:8000/api/users/';
 
-const USERS_URL  = `${BASE_URL}/api/users/`;
-const TEAMS_URL  = `${BASE_URL}/api/teams/`;
+const TEAMS_URL = process.env.REACT_APP_CODESPACE_NAME
+  ? `https://${process.env.REACT_APP_CODESPACE_NAME}-8000.app.github.dev/api/teams/`
+  : 'http://localhost:8000/api/teams/';
 
 /** Return the team that currently lists this user email as a member. */
 function userTeam(email, teams) {
